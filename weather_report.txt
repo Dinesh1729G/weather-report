@@ -1,0 +1,46 @@
+import requests
+
+from datetime import datetime
+
+my_api_key = '6617e9bfe532f15717c2898277e0b931'
+
+city_name = input("enter the city name:")
+
+api_url_link = "https://api.openweathermap.org/data/2.5/weather?q="+city_name+"&appid="+my_api_key
+
+api_link = requests.get(api_url_link)
+
+api_data = api_link.json()
+
+country = api_data['sys']['country']
+lat = api_data['coord']['lat']
+lon = api_data['coord']['lon']
+city_temp = ((api_data['main']['temp'])-273.15)
+weather_desc = api_data['weather'][0]['description']
+hmdt = api_data['main']['humidity']
+pressure = api_data['main']['pressure']
+wind_spd = api_data['wind']['speed']
+date_time = datetime.now().strftime("%d %b %Y | %I:%M:%S %p")
+
+print("***************************************************************")
+print("weather report for- {}||{}".format(city_name.upper(),date_time))
+print("***************************************************************")
+
+
+print("city is in :",country)
+print("latitude is :",lat)
+print("longitude  is  :",lon)
+print("current temperature is :{:.2f} degree celcius".format(city_temp))
+print("current weather description is :",weather_desc)
+print("current humidity is :",hmdt,'%')
+print("current pressure is :",pressure,'hPa')
+print("current wind speed is :",wind_spd,'kmph')
+
+
+
+
+
+
+
+
+
